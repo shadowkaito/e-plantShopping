@@ -264,7 +264,6 @@ function ProductList({ onHomeClick }) {
         }))
     }
     const getTotalItem = () => {
-        console.log(addedToCart);
         return Object.values(addedToCart).filter(value => value === true).length;
     }
 
