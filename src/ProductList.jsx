@@ -263,9 +263,11 @@ function ProductList({ onHomeClick }) {
             [plant.name]: true
         }))
     }
-    const getTotalItem = ()=>{
-        return Object.values(addedToCart).filter(value => value === true).length
+    const getTotalItem = () => {
+        console.log(addedToCart);
+        return Object.values(addedToCart).filter(value => value === true).length;
     }
+
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -286,7 +288,7 @@ function ProductList({ onHomeClick }) {
                     <div>
                         <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
                             <h1 className='cart'>
-                            <a className='cart_quantity_count'>{getTotalItem()}</a>
+                                <a className='cart_quantity_count'>{getTotalItem()}</a>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68">
                                     <rect width="156" height="156" fill="none"></rect>
                                     <circle cx="80" cy="216" r="12"></circle>
@@ -317,13 +319,21 @@ function ProductList({ onHomeClick }) {
 
                                         <div className="product-description">{plant.description}</div>
                                         <div className="product-cost">{plant.cost}</div>
-                                        {}
-                                        <button
-                                            className="product-button"
-                                            onClick={() => handleAddToCart(plant)}
-                                        >
-                                            Add to Cart
-                                        </button>
+                                        {addedToCart[plant.name] ? (
+                                            <button
+                                                className="product-button added-to-cart"
+                                            >
+                                                Added to Cart
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="product-button"
+                                                onClick={() => handleAddToCart(plant)}
+                                            >
+                                                Add to Cart
+                                            </button>
+                                        )}
+
                                     </div>
                                 ))}
                             </div>
@@ -332,7 +342,7 @@ function ProductList({ onHomeClick }) {
 
                 </div>
             ) : (
-                <CartItem onContinueShopping={handleContinueShopping} setAddedToCart={setAddedToCart}/>
+                <CartItem onContinueShopping={handleContinueShopping} setAddedToCart={setAddedToCart} addedToCart={addedToCart}/>
             )}
         </div>
     );
